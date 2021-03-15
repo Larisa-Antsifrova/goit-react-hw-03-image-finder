@@ -105,6 +105,7 @@ class App extends Component {
             onClose={this.toggleModal}
           />
         )}
+        <Button />
       </div>
     );
   }
