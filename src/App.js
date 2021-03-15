@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
+import ImageGalleryItem from './components/ImageGalleryItem';
 
 import { fetchImages } from './services/pixabayApi';
 
@@ -17,7 +18,11 @@ class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery></ImageGallery>
+        <ImageGallery>
+          {this.state.images.map(image => (
+            <ImageGalleryItem key={image.id} image={image} />
+          ))}
+        </ImageGallery>
       </div>
     );
   }
