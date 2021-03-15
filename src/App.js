@@ -9,12 +9,6 @@ import { fetchImages } from './services/pixabayApi';
 class App extends Component {
   state = { images: [], query: '', page: 1 };
 
-  componentDidMount() {
-    // fetchImages(this.state.query, this.state.page).then(images =>
-    //   this.setState({ images: images }),
-    // );
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
       this.getImages();
@@ -26,7 +20,15 @@ class App extends Component {
   };
 
   getImages = () => {
-    fetchImages(this.state.query, this.state.page, 5).then(images =>
+    const { query, page } = this.state;
+
+    const options = {
+      query,
+      page,
+      perPage: 3,
+    };
+
+    fetchImages(options).then(images =>
       this.setState(prevState => ({
         images: [...prevState.images, ...images],
         page: prevState.page + 1,
@@ -35,6 +37,8 @@ class App extends Component {
   };
 
   render() {
+    const { images } = this.state;
+
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -43,7 +47,7 @@ class App extends Component {
             <ImageGalleryItem key={image.id} image={image} />
           ))}
         </ImageGallery>
-        <Button onLoadMore={this.getImages} />
+        {images.length > 0 && <Button onLoadMore={this.getImages} />}
       </div>
     );
   }
