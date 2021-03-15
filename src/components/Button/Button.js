@@ -4,7 +4,7 @@ import styles from './Button.module.css';
 
 const Button = ({ onLoadMore }) => {
   return (
-    <button type="button" className="Button" onClick={onLoadMore}>
+    <button type="button" className={styles.Button} onClick={onLoadMore}>
       Load more
     </button>
   );
