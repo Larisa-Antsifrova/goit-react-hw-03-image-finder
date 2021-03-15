@@ -60,13 +60,7 @@ class App extends Component {
           ))}
         </ImageGallery>
         {this.state.isLoading && (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            timeout={3000} //3 secs
-          />
+          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
         )}
         {images.length > 0 && <Button onLoadMore={this.getImages} />}
       </div>
