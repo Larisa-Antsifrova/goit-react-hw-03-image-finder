@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // Importing components
+import Container from './components/Container';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
@@ -84,25 +85,27 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery>
-          {images.map(image => (
-            <ImageGalleryItem
-              key={image.id}
-              image={image}
-              setLargeImg={this.setLargeImg}
+        <Container>
+          <ImageGallery>
+            {images.map(image => (
+              <ImageGalleryItem
+                key={image.id}
+                image={image}
+                setLargeImg={this.setLargeImg}
+              />
+            ))}
+          </ImageGallery>
+          {error && <Error message={error.message} />}
+          {isLoading && (
+            <Loader
+              type="TailSpin"
+              color="#00BFFF"
+              height={80}
+              width={80}
+              className="loader"
             />
-          ))}
-        </ImageGallery>
-        {error && <Error message={error.message} />}
-        {isLoading && (
-          <Loader
-            type="TailSpin"
-            color="#00BFFF"
-            height={80}
-            width={80}
-            className="loader"
-          />
-        )}
+          )}
+        </Container>
         {images.length > 0 && !isLoading && (
           <Button onLoadMore={this.getImages} />
         )}
