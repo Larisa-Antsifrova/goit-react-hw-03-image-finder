@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Searchbar from './components/Searchbar';
 
+// import './services/pixabayApi';
+
 class App extends Component {
   state = {};
   render() {
