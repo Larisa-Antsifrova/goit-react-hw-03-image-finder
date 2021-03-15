@@ -5,6 +5,7 @@ import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
 import Button from './components/Button';
 import Modal from './components/Modal';
+import Error from './components/Error';
 // Importing function to fetch images from API
 import { fetchImages } from './services/pixabayApi';
 // Loader from https://github.com/mhnpd/react-loader-spinner and its styles
@@ -92,7 +93,7 @@ class App extends Component {
             />
           ))}
         </ImageGallery>
-        {error && <p>{error.message}</p>}
+        {error && <Error message={error.message} />}
         {isLoading && (
           <Loader
             type="TailSpin"
