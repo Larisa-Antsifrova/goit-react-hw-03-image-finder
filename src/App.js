@@ -93,7 +93,13 @@ class App extends Component {
         </ImageGallery>
         {this.state.error && <p>{this.state.error.message}</p>}
         {this.state.isLoading && (
-          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+          <Loader
+            type="TailSpin"
+            color="#00BFFF"
+            height={80}
+            width={80}
+            className="loader"
+          />
         )}
         {images.length > 0 && !this.state.isLoading && (
           <Button onLoadMore={this.getImages} />
