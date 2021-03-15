@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ image }) => {
+const ImageGalleryItem = ({ image, setLargeImg }) => {
   return (
-    <li className="ImageGalleryItem">
+    <li className="ImageGalleryItem" onClick={() => setLargeImg(image)}>
       <img
         src={image.webformatURL}
         alt={image.tags}

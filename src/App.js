@@ -9,7 +9,14 @@ import { fetchImages } from './services/pixabayApi';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 class App extends Component {
-  state = { images: [], query: '', page: 1, isLoading: false };
+  state = {
+    images: [],
+    query: '',
+    page: 1,
+    isLoading: false,
+    error: null,
+    selectedImg: '',
+  };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
@@ -18,7 +25,13 @@ class App extends Component {
   }
 
   handleSubmit = newQuery => {
-    this.setState({ images: [], query: newQuery, page: 1 });
+    this.setState({
+      images: [],
+      query: newQuery,
+      page: 1,
+      error: null,
+      selectedImg: '',
+    });
   };
 
   getImages = () => {
@@ -44,8 +57,12 @@ class App extends Component {
           behavior: 'smooth',
         });
       })
-      .catch(err => console.log(err.message))
+      .catch(error => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
+  };
+
+  setLargeImg = image => {
+    this.setState({ selectedImg: image.largeImageURL });
   };
 
   render() {
@@ -56,13 +73,19 @@ class App extends Component {
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery>
           {this.state.images.map(image => (
-            <ImageGalleryItem key={image.id} image={image} />
+            <ImageGalleryItem
+              key={image.id}
+              image={image}
+              setLargeImg={this.setLargeImg}
+            />
           ))}
         </ImageGallery>
         {this.state.isLoading && (
           <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
         )}
-        {images.length > 0 && <Button onLoadMore={this.getImages} />}
+        {images.length > 0 && !this.state.isLoading && (
+          <Button onLoadMore={this.getImages} />
+        )}
       </div>
     );
   }
