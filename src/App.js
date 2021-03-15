@@ -4,6 +4,7 @@ import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
 import Button from './components/Button';
 import Loader from 'react-loader-spinner';
+import Modal from './components/Modal';
 
 import { fetchImages } from './services/pixabayApi';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
@@ -31,6 +32,7 @@ class App extends Component {
       page: 1,
       error: null,
       selectedImg: '',
+      showModal: false,
     });
   };
 
@@ -63,6 +65,13 @@ class App extends Component {
 
   setLargeImg = image => {
     this.setState({ selectedImg: image.largeImageURL });
+    this.toggleModal();
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   };
 
   render() {
@@ -85,6 +94,12 @@ class App extends Component {
         )}
         {images.length > 0 && !this.state.isLoading && (
           <Button onLoadMore={this.getImages} />
+        )}
+        {this.state.showModal && (
+          <Modal
+            largeImgUrl={this.state.selectedImg}
+            onClose={this.toggleModal}
+          />
         )}
       </div>
     );
