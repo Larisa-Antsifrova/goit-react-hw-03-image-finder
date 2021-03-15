@@ -42,7 +42,6 @@ class App extends Component {
     const options = {
       query,
       page,
-      perPage: 3,
     };
 
     this.setState({ isLoading: true });
