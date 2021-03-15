@@ -42,5 +42,6 @@ img {
 * Styles for the Loader
 */
 .loader {
-  margin: 0 auto;
+  margin: 20px auto;
+  text-align: center;
 }
