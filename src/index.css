@@ -29,7 +29,7 @@ img {
 }
 
 /*
- * Стили компонента App
+ * Styles for App component
  */
 .App {
   display: grid;
@@ -38,6 +38,9 @@ img {
   padding-bottom: 24px;
 }
 
+/* 
+* Styles for the Loader
+*/
 .loader {
   margin: 0 auto;
 }

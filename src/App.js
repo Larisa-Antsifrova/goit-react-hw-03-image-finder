@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+// Importing components
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
 import Button from './components/Button';
-import Loader from 'react-loader-spinner';
 import Modal from './components/Modal';
-
+// Importing function to fetch images from API
 import { fetchImages } from './services/pixabayApi';
+// Loader from https://github.com/mhnpd/react-loader-spinner and its styles
+import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
 class App extends Component {
   state = {
     images: [],
@@ -53,6 +54,7 @@ class App extends Component {
           page: prevState.page + 1,
         }));
 
+        // Taken from Homework task for smooth scroll
         window.scrollTo({
           top: document.documentElement.scrollHeight,
           behavior: 'smooth',
@@ -60,7 +62,6 @@ class App extends Component {
       })
       .catch(error => {
         this.setState({ error });
-        console.log('Error', error.message);
       })
       .finally(() => this.setState({ isLoading: false }));
   };
@@ -77,13 +78,13 @@ class App extends Component {
   };
 
   render() {
-    const { images } = this.state;
+    const { images, error, isLoading, showModal, selectedImg } = this.state;
 
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery>
-          {this.state.images.map(image => (
+          {images.map(image => (
             <ImageGalleryItem
               key={image.id}
               image={image}
@@ -91,8 +92,8 @@ class App extends Component {
             />
           ))}
         </ImageGallery>
-        {this.state.error && <p>{this.state.error.message}</p>}
-        {this.state.isLoading && (
+        {error && <p>{error.message}</p>}
+        {isLoading && (
           <Loader
             type="TailSpin"
             color="#00BFFF"
@@ -101,14 +102,11 @@ class App extends Component {
             className="loader"
           />
         )}
-        {images.length > 0 && !this.state.isLoading && (
+        {images.length > 0 && !isLoading && (
           <Button onLoadMore={this.getImages} />
         )}
-        {this.state.showModal && (
-          <Modal
-            largeImgUrl={this.state.selectedImg}
-            onClose={this.toggleModal}
-          />
+        {showModal && (
+          <Modal largeImgUrl={selectedImg} onClose={this.toggleModal} />
         )}
       </div>
     );
