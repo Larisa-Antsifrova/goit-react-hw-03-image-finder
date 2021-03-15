@@ -3,11 +3,13 @@ import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageGalleryItem from './components/ImageGalleryItem';
 import Button from './components/Button';
+import Loader from 'react-loader-spinner';
 
 import { fetchImages } from './services/pixabayApi';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 class App extends Component {
-  state = { images: [], query: '', page: 1 };
+  state = { images: [], query: '', page: 1, isLoading: false };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
@@ -28,17 +30,22 @@ class App extends Component {
       perPage: 3,
     };
 
-    fetchImages(options).then(images => {
-      this.setState(prevState => ({
-        images: [...prevState.images, ...images],
-        page: prevState.page + 1,
-      }));
+    this.setState({ isLoading: true });
 
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: 'smooth',
-      });
-    });
+    fetchImages(options)
+      .then(images => {
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images],
+          page: prevState.page + 1,
+        }));
+
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      })
+      .catch(err => console.log(err.message))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
@@ -52,6 +59,15 @@ class App extends Component {
             <ImageGalleryItem key={image.id} image={image} />
           ))}
         </ImageGallery>
+        {this.state.isLoading && (
+          <Loader
+            type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            timeout={3000} //3 secs
+          />
+        )}
         {images.length > 0 && <Button onLoadMore={this.getImages} />}
       </div>
     );
