@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Searchbar handleSubmit={this.handleSubmit} />
+        <Searchbar onSubmit={this.handleSubmit} />
       </div>
     );
   }
