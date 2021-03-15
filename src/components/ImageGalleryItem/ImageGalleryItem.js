@@ -3,12 +3,13 @@ import React from 'react';
 import styles from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = ({ image, setLargeImg }) => {
+  const { webformatURL, tags } = image;
   return (
-    <li className="ImageGalleryItem" onClick={() => setLargeImg(image)}>
+    <li className={styles.ImageGalleryItem} onClick={() => setLargeImg(image)}>
       <img
-        src={image.webformatURL}
-        alt={image.tags}
-        className="ImageGalleryItem-image"
+        src={webformatURL}
+        alt={tags}
+        className={styles['ImageGalleryItem-image']}
       />
     </li>
   );
