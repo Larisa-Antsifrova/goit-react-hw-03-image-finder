@@ -81,7 +81,7 @@ class App extends Component {
     const { images } = this.state;
 
     return (
-      <div>
+      <div className="App">
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery>
           {this.state.images.map(image => (
@@ -105,7 +105,6 @@ class App extends Component {
             onClose={this.toggleModal}
           />
         )}
-        <Button />
       </div>
     );
   }
