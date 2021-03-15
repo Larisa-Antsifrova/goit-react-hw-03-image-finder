@@ -8,7 +8,7 @@ const BASE_URL = 'https://pixabay.com/api/';
 function fetchImages(query, page, perPage = 12) {
   return axios
     .get(
-      `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`,
+      `${BASE_URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`,
     )
     .then(response => response.data.hits);
 }

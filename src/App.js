@@ -7,21 +7,26 @@ import Button from './components/Button';
 import { fetchImages } from './services/pixabayApi';
 
 class App extends Component {
-  state = { images: [], query: '', page: 1 };
+  state = { images: [], page: 1 };
 
   componentDidMount() {
-    fetchImages(this.state.query, this.state.page).then(images =>
-      this.setState({ images: images }),
-    );
+    // fetchImages(this.state.query, this.state.page).then(images =>
+    //   this.setState({ images: images }),
+    // );
   }
 
   componentDidUpdate() {
-    fetchImages(this.state.query, this.state.page).then(images =>
-      this.setState({ images: images }),
-    );
+    // fetchImages(this.state.query, this.state.page).then(images =>
+    //   this.setState({ images: images }),
+    // );
   }
 
-  handleSubmit = newQuery => this.setState({ query: newQuery });
+  handleSubmit = newQuery => {
+    // this.setState({ query: newQuery })
+    fetchImages(newQuery, this.state.page, 5).then(images =>
+      this.setState({ images }),
+    );
+  };
 
   render() {
     return (
