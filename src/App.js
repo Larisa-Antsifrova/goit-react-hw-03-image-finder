@@ -28,12 +28,17 @@ class App extends Component {
       perPage: 3,
     };
 
-    fetchImages(options).then(images =>
+    fetchImages(options).then(images => {
       this.setState(prevState => ({
         images: [...prevState.images, ...images],
         page: prevState.page + 1,
-      })),
-    );
+      }));
+
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    });
   };
 
   render() {
