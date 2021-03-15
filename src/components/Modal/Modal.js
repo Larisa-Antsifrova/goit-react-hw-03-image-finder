@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Modal.module.css';
 
+// Getting access to another div to render the Modal
 const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
@@ -38,7 +39,7 @@ class Modal extends Component {
     return createPortal(
       <div className={styles.Overlay} onClick={this.handleBackdropClick}>
         <div className={styles.Modal}>
-          <img src={largeImgUrl} alt="" />
+          <img src={largeImgUrl} alt="Gallery item" />
         </div>
       </div>,
       modalRoot,
