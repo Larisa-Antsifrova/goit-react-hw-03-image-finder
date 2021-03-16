@@ -12,6 +12,7 @@ import { fetchImages } from './services/pixabayApi';
 // Loader from https://github.com/mhnpd/react-loader-spinner and its styles
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import _ from 'lodash';
 class App extends Component {
   state = {
     images: [],
@@ -106,7 +107,7 @@ class App extends Component {
             />
           )}
         </Container>
-        {images.length > 0 && !isLoading && (
+        {!_.isEmpty(images) && !isLoading && (
           <Button onLoadMore={this.getImages} />
         )}
         {showModal && (
