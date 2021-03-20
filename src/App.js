@@ -21,10 +21,10 @@ class App extends Component {
     isLoading: false,
     error: null,
     selectedImg: '',
+    showModal: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.images);
     if (prevState.query !== this.state.query) {
       this.getImages();
     }
@@ -81,6 +81,14 @@ class App extends Component {
     }));
   };
 
+  deleteImage = imageId => {
+    this.setState(prevState => {
+      return {
+        images: prevState.images.filter(image => image.id !== imageId),
+      };
+    });
+  };
+
   render() {
     const { images, error, isLoading, showModal, selectedImg } = this.state;
 
@@ -94,6 +102,7 @@ class App extends Component {
                 key={image.id}
                 image={image}
                 setLargeImg={this.setLargeImg}
+                deleteImage={this.deleteImage}
               />
             ))}
           </ImageGallery>
