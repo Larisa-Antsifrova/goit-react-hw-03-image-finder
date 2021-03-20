@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+import CloseButton from '../CloseButton/CloseButton';
 
 import styles from './Modal.module.css';
 
@@ -8,6 +9,10 @@ import styles from './Modal.module.css';
 const modalRoot = document.querySelector('#modal-root');
 
 class Modal extends Component {
+  state = {
+    loaded: false,
+  };
+
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     largeImgUrl: PropTypes.string.isRequired,
@@ -20,6 +25,10 @@ class Modal extends Component {
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
+
+  handleLoad = () => {
+    this.setState({ loaded: true });
+  };
 
   handleKeyDown = e => {
     if (e.code === 'Escape') {
@@ -39,7 +48,8 @@ class Modal extends Component {
     return createPortal(
       <div className={styles.Overlay} onClick={this.handleBackdropClick}>
         <div className={styles.Modal}>
-          <img src={largeImgUrl} alt="Gallery item" />
+          {this.state.loaded && <CloseButton onClose={this.props.onClose} />}
+          <img src={largeImgUrl} alt="Gallery item" onLoad={this.handleLoad} />
         </div>
       </div>,
       modalRoot,

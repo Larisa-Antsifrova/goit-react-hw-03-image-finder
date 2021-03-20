@@ -24,6 +24,7 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.images);
     if (prevState.query !== this.state.query) {
       this.getImages();
     }
